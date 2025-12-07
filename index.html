@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedic Kundali & Matchmaking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Attribution -->
+    <div class="attribution">Created by Ambrose Rapose</div>
+
+    <!-- Background -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <div class="app-container">
+        <header>
+            <h1><span class="om">ॐ</span> Vedic Astro <span class="om">ॐ</span></h1>
+            <p>Cosmic Insights & Soul Matchmaking</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="switchTab('kundali')">Generate Kundali</button>
+            <button class="tab-btn" onclick="switchTab('matchmaking')">Matchmaking (Gun Milan)</button>
+        </nav>
+
+        <main>
+            <!-- Tab 1: Kundali -->
+            <section id="kundali" class="tab-content active">
+                <div class="card">
+                    <h2>Birth Details</h2>
+                    <form onsubmit="generateKundali(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="k-name" placeholder="Enter Name" required>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <input type="date" id="k-dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Time of Birth</label>
+                                <input type="time" id="k-time" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Place of Birth</label>
+                            <input type="text" id="k-place" placeholder="City, Country" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Generate Chart</button>
+                    </form>
+                </div>
+
+                <div id="kundali-result" class="result-box hidden">
+                    <div class="result-header">
+                        <h3>North Indian Chart</h3>
+                        <button onclick="window.print()" class="btn-print">🖨️ Print</button>
+                    </div>
+                    <div class="chart-container">
+                        <svg id="chart-svg" viewBox="0 0 400 400">
+                            <!-- Diamond Layout -->
+                            <rect x="2" y="2" width="396" height="396" fill="none" stroke="#ffd700" stroke-width="2" />
+                            <path d="M0,0 L400,400 M400,0 L0,400" stroke="#ffd700" stroke-width="1" />
+                            <path d="M200,0 L400,200 L200,400 L0,200 Z" fill="none" stroke="#ffd700" stroke-width="1" />
+                            <g id="planets-layer"></g>
+                        </svg>
+                    </div>
+                    <div class="table-container">
+                        <h3>Planetary Positions</h3>
+                        <table class="astro-table">
+                            <thead>
+                                <tr>
+                                    <th>Planet</th>
+                                    <th>Sign</th>
+                                    <th>Degree</th>
+                                </tr>
+                            </thead>
+                            <tbody id="planet-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 2: Matchmaking -->
+            <section id="matchmaking" class="tab-content">
+                <div class="card">
+                    <h2>Matchmaking Details</h2>
+                    <form onsubmit="calculateMatch(event)">
+                        <div class="match-columns">
+                            <div class="col">
+                                <h3>Boy's Details</h3>
+                                <input type="text" id="b-name" placeholder="Name" required>
+                                <input type="date" id="b-dob" required>
+                                <input type="time" id="b-time" required>
+                                <input type="text" id="b-place" placeholder="Place" required>
+                            </div>
+                            <div class="col">
+                                <h3>Girl's Details</h3>
+                                <input type="text" id="g-name" placeholder="Name" required>
+                                <input type="date" id="g-dob" required>
+                                <input type="time" id="g-time" required>
+                                <input type="text" id="g-place" placeholder="Place" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Check Compatibility</button>
+                    </form>
+                </div>
+
+                <div id="match-result" class="result-box hidden">
+                    <div class="result-header">
+                        <h3>Compatibility Report</h3>
+                        <button onclick="window.print()" class="btn-print">🖨️ Print</button>
+                    </div>
+                    <div class="score-area">
+                        <div class="score-circle">
+                            <span id="score-number">0</span>
+                            <span class="score-total">/ 36</span>
+                        </div>
+                        <div id="score-text" class="verdict"></div>
+                    </div>
+                    <div class="table-container">
+                        <table class="astro-table">
+                            <thead>
+                                <tr>
+                                    <th>Koota</th>
+                                    <th>Max</th>
+                                    <th>Obtained</th>
+                                </tr>
+                            </thead>
+                            <tbody id="koota-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
